@@ -90,16 +90,6 @@ const SERVER_CONFIGS: Record<string, ServerConfig> = {
     args: ["-y", "exa-mcp-server"],
     env: { EXA_API_KEY: process.env.EXA_API_KEY || "" },
   },
-  playwright: {
-    type: "stdio",
-    command: "npx",
-    args: [
-      "-y",
-      "@playwright/mcp@latest",
-      "--executable-path",
-      `${process.env.HOME}/Library/Caches/ms-playwright/chromium-1200/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing`,
-    ],
-  },
 
   // ─────────────────────────────────────────────────────────────
   // Streamable HTTP servers (remote, recommended for new servers)
@@ -301,15 +291,14 @@ server.registerTool(
 Available servers: ${availableServers.join(", ")}
 
 Transport types:
-- stdio: Local servers (context7, exa, playwright)
+- stdio: Local servers (context7, exa)
 - streamable-http: Remote servers (recommended, MCP 2025-03-26+)
 - sse: Legacy remote servers (backwards compatibility)
 - auto-http: Tries streamable-http, falls back to sse
 
 Examples:
 - invoke("context7", "resolve-library-id", {libraryName: "react"})
-- invoke("exa", "web_search_exa", {query: "Next.js 16"})
-- invoke("playwright", "browser_navigate", {url: "https://example.com"})`,
+- invoke("exa", "web_search_exa", {query: "Next.js 16"})`,
     inputSchema: {
       server: z.enum(availableServers).describe("Target MCP server to invoke"),
       tool: z.string().describe("Tool name on the target server"),
