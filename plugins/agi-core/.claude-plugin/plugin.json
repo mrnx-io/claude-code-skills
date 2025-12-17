@@ -1,6 +1,6 @@
 {
   "name": "agi-core",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Unified cognitive enhancement plugin: token-optimized MCP gateway + reasoning skills + autonomous agents + quality hooks",
   "author": {
     "name": "Marnix Pluim"
@@ -8,6 +8,5 @@
   "mcpServers": "./.mcp.json",
   "commands": "./commands",
   "agents": "./agents/*.md",
-  "skills": "./skills",
-  "hooks": "./hooks/hooks.json"
+  "skills": "./skills"
 }
