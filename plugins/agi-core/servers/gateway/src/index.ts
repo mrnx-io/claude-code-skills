@@ -93,7 +93,12 @@ const SERVER_CONFIGS: Record<string, ServerConfig> = {
   playwright: {
     type: "stdio",
     command: "npx",
-    args: ["-y", "@playwright/mcp@latest"],
+    args: [
+      "-y",
+      "@playwright/mcp@latest",
+      "--executable-path",
+      `${process.env.HOME}/Library/Caches/ms-playwright/chromium-1200/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing`,
+    ],
   },
 
   // ─────────────────────────────────────────────────────────────
