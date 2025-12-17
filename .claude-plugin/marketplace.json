@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "claude-code-skills",
-  "description": "Custom Claude Code plugins and skills",
+  "name": "agi-core",
+  "description": "AGI-focused cognitive enhancement plugins",
   "owner": {
     "name": "Marnix Pluim"
   },
@@ -14,7 +14,7 @@
       },
       "source": "./plugins/agi-core",
       "category": "integration",
-      "homepage": "https://github.com/mrnx-io/claude-code-skills"
+      "homepage": "https://github.com/mrnx-io/agi-core"
     }
   ]
 }
