@@ -5,6 +5,10 @@
  * Exposes a single `invoke` tool that routes to underlying MCP servers.
  * This achieves 95% token reduction by replacing 50+ tool definitions with 1.
  *
+ * Supports both stdio and SSE transports:
+ * - stdio: Local servers spawned via npx/bun/python (most common)
+ * - sse: Remote servers accessed via HTTP/SSE (for hosted services)
+ *
  * Usage: invoke(server, tool, args)
  * Example: invoke("context7", "resolve-library-id", {libraryName: "react"})
  */
@@ -13,31 +17,65 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js"
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { Client } from "@modelcontextprotocol/sdk/client/index.js"
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js"
+import { SSEClientTransport } from "@modelcontextprotocol/sdk/client/sse.js"
 import { CallToolResultSchema } from "@modelcontextprotocol/sdk/types.js"
 import { z } from "zod"
 
+// Transport types
+type StdioConfig = {
+  type: "stdio"
+  command: string
+  args: string[]
+  env?: Record<string, string>
+}
+
+type SSEConfig = {
+  type: "sse"
+  url: string
+  headers?: Record<string, string>
+}
+
+type ServerConfig = StdioConfig | SSEConfig
+
 // Server configurations for lazy connection
-const SERVER_CONFIGS: Record<
-  string,
-  { command: string; args: string[]; env?: Record<string, string> }
-> = {
+const SERVER_CONFIGS: Record<string, ServerConfig> = {
+  // ─────────────────────────────────────────────────────────────
+  // Stdio servers (local, spawned on-demand)
+  // ─────────────────────────────────────────────────────────────
   context7: {
+    type: "stdio",
     command: "npx",
     args: ["-y", "@anthropic-ai/context7-mcp@latest"],
   },
   exa: {
+    type: "stdio",
     command: "npx",
     args: ["-y", "exa-mcp-server"],
     env: { EXA_API_KEY: process.env.EXA_API_KEY || "" },
   },
   notion: {
+    type: "stdio",
     command: "npx",
     args: ["-y", "@anthropic-ai/notion-mcp"],
   },
   playwright: {
+    type: "stdio",
     command: "npx",
     args: ["-y", "@anthropic-ai/playwright-mcp"],
   },
+
+  // ─────────────────────────────────────────────────────────────
+  // SSE servers (remote, must be running at URL)
+  // ─────────────────────────────────────────────────────────────
+  // Example: Uncomment and configure when you have a remote MCP service
+  //
+  // "remote-api": {
+  //   type: "sse",
+  //   url: "https://mcp.example.com/sse",
+  //   headers: {
+  //     Authorization: `Bearer ${process.env.REMOTE_API_KEY || ""}`,
+  //   },
+  // },
 }
 
 // Lazy client connections
@@ -56,20 +94,32 @@ async function getClient(serverName: string): Promise<Client> {
     )
   }
 
-  // Create MCP client transport - it spawns the process internally
-  // Filter out undefined env values
-  const env: Record<string, string> = {}
-  for (const [key, value] of Object.entries({ ...process.env, ...config.env })) {
-    if (value !== undefined) {
-      env[key] = value
-    }
-  }
+  // Create appropriate transport based on config type
+  let transport
 
-  const transport = new StdioClientTransport({
-    command: config.command,
-    args: config.args,
-    env,
-  })
+  if (config.type === "sse") {
+    // SSE transport for remote servers
+    transport = new SSEClientTransport(new URL(config.url), {
+      requestInit: {
+        headers: config.headers || {},
+      },
+    })
+  } else {
+    // Stdio transport for local servers (default)
+    // Filter out undefined env values
+    const env: Record<string, string> = {}
+    for (const [key, value] of Object.entries({ ...process.env, ...config.env })) {
+      if (value !== undefined) {
+        env[key] = value
+      }
+    }
+
+    transport = new StdioClientTransport({
+      command: config.command,
+      args: config.args,
+      env,
+    })
+  }
 
   // Create and connect client
   const client = new Client(
