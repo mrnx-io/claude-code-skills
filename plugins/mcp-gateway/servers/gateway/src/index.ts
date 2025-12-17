@@ -82,7 +82,7 @@ const SERVER_CONFIGS: Record<string, ServerConfig> = {
   context7: {
     type: "stdio",
     command: "npx",
-    args: ["-y", "@anthropic-ai/context7-mcp@latest"],
+    args: ["-y", "@upstash/context7-mcp"],
   },
   exa: {
     type: "stdio",
@@ -90,15 +90,18 @@ const SERVER_CONFIGS: Record<string, ServerConfig> = {
     args: ["-y", "exa-mcp-server"],
     env: { EXA_API_KEY: process.env.EXA_API_KEY || "" },
   },
-  notion: {
-    type: "stdio",
-    command: "npx",
-    args: ["-y", "@anthropic-ai/notion-mcp"],
-  },
   playwright: {
     type: "stdio",
     command: "npx",
-    args: ["-y", "@anthropic-ai/playwright-mcp"],
+    args: ["-y", "@playwright/mcp@latest"],
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // HTTP servers (remote, official Notion MCP endpoint)
+  // ─────────────────────────────────────────────────────────────
+  notion: {
+    type: "streamable-http",
+    url: "https://mcp.notion.com/mcp",
   },
 
   // ─────────────────────────────────────────────────────────────
