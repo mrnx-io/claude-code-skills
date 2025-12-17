@@ -7,7 +7,7 @@
   },
   "mcpServers": "./.mcp.json",
   "commands": "./commands",
-  "agents": "./agents",
+  "agents": "./agents/*.md",
   "skills": "./skills",
   "hooks": "./hooks/hooks.json"
 }
