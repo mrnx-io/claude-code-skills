@@ -5,5 +5,5 @@
   "author": {
     "name": "Marnix Pluim"
   },
-  "mcpServers": "${CLAUDE_PLUGIN_ROOT}/.mcp.json"
+  "mcpServers": "./.mcp.json"
 }
