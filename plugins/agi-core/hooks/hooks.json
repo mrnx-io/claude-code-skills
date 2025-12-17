@@ -2,42 +2,11 @@
   "hooks": {
     "Stop": [
       {
-        "matcher": ".*",
+        "matcher": "*",
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "Before finalizing this response, perform a brief quality check:\n\n1. **Core Question**: Have I directly addressed what was asked?\n2. **Completeness**: Are there important aspects I haven't covered?\n3. **Accuracy**: Am I confident in my claims? Should I note any uncertainty?\n4. **Assumptions**: What am I assuming that might not be true?\n\nIf any concern is significant, revise before responding. If the response is solid, proceed."
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "Before modifying code, verify:\n\n1. **Alignment**: Does this change align with existing patterns in the codebase?\n2. **Edge Cases**: Have I considered error conditions and boundary cases?\n3. **Security**: Could this introduce vulnerabilities (injection, XSS, auth bypass)?\n4. **Scope**: Am I changing only what's necessary, avoiding over-engineering?\n\nProceed if checks pass. Reconsider if concerns arise."
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "Before executing this command:\n\n1. **Destructive?**: Could this delete, overwrite, or corrupt data?\n2. **Reversible?**: If something goes wrong, can it be undone?\n3. **Scope**: Is this scoped correctly (not affecting unintended files/systems)?\n\nProceed with caution. For destructive operations, ensure there's a backup or the action is intentional."
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "WebSearch|WebFetch",
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "After gathering external information:\n\n1. **Source Quality**: Is this source reliable? (Official docs > blogs > forums)\n2. **Recency**: Is this information current or potentially outdated?\n3. **Cross-Validation**: Should I verify this with additional sources?\n\nNote any uncertainty when presenting findings."
+            "prompt": "Before completing, verify documentation is current: (1) Code changes → update comments/docstrings. (2) Architecture changes → update CLAUDE.md/README. (3) agi-core plugin changes → update ~/.claude/CLAUDE.md with current version, agent/skill/command counts, and MCP servers. (4) New features → update user docs. If docs are current OR no changes made, return {\"decision\": \"approve\"}. If updates needed, return {\"decision\": \"block\", \"reason\": \"[specific files]\"} and continue."
           }
         ]
       }
