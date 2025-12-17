@@ -1,0 +1,20 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "claude-code-skills",
+  "description": "Custom Claude Code plugins and skills",
+  "owner": {
+    "name": "Marnix Pluim"
+  },
+  "plugins": [
+    {
+      "name": "mcp-gateway",
+      "description": "Token-optimized MCP gateway exposing single invoke tool with progressive disclosure",
+      "author": {
+        "name": "Marnix Pluim"
+      },
+      "source": "./plugins/mcp-gateway",
+      "category": "integration",
+      "homepage": "https://github.com/mrnx-io/claude-code-skills"
+    }
+  ]
+}
