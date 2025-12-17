@@ -259,7 +259,7 @@ async function getClient(serverName: string): Promise<Client> {
   const client = new Client(
     {
       name: `gateway-to-${serverName}`,
-      version: "1.0.0",
+      version: "2.0.0",
     },
     {
       capabilities: {},
