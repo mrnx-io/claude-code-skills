@@ -1,4 +1,5 @@
 {
+  "description": "UpdateDocs: Enforces documentation is current before task completion",
   "hooks": {
     "Stop": [
       {
