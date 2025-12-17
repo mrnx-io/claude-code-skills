@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "gateway": {
+      "command": "bun",
+      "args": ["run", "${CLAUDE_PLUGIN_ROOT}/servers/gateway/src/index.ts"]
+    }
+  }
+}

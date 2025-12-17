@@ -1,0 +1,9 @@
+{
+  "name": "mcp-gateway",
+  "version": "1.0.0",
+  "description": "Token-optimized MCP gateway exposing single invoke tool with progressive disclosure",
+  "author": {
+    "name": "Marnix Pluim"
+  },
+  "mcpServers": "${CLAUDE_PLUGIN_ROOT}/.mcp.json"
+}
