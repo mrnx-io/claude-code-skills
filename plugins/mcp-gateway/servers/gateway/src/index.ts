@@ -97,14 +97,6 @@ const SERVER_CONFIGS: Record<string, ServerConfig> = {
   },
 
   // ─────────────────────────────────────────────────────────────
-  // HTTP servers (remote, official Notion MCP endpoint)
-  // ─────────────────────────────────────────────────────────────
-  notion: {
-    type: "streamable-http",
-    url: "https://mcp.notion.com/mcp",
-  },
-
-  // ─────────────────────────────────────────────────────────────
   // Streamable HTTP servers (remote, recommended for new servers)
   // ─────────────────────────────────────────────────────────────
   // Example: Modern MCP server with Streamable HTTP
