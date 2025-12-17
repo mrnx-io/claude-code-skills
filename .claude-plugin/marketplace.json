@@ -7,12 +7,12 @@
   },
   "plugins": [
     {
-      "name": "mcp-gateway",
-      "description": "Token-optimized MCP gateway exposing single invoke tool with progressive disclosure",
+      "name": "agi-core",
+      "description": "Unified cognitive enhancement: token-optimized MCP gateway + reasoning skills + autonomous agents + quality hooks",
       "author": {
         "name": "Marnix Pluim"
       },
-      "source": "./plugins/mcp-gateway",
+      "source": "./plugins/agi-core",
       "category": "integration",
       "homepage": "https://github.com/mrnx-io/claude-code-skills"
     }
