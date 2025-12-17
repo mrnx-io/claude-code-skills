@@ -296,7 +296,7 @@ server.registerTool(
 Available servers: ${availableServers.join(", ")}
 
 Transport types:
-- stdio: Local servers (context7, exa, notion, playwright)
+- stdio: Local servers (context7, exa, playwright)
 - streamable-http: Remote servers (recommended, MCP 2025-03-26+)
 - sse: Legacy remote servers (backwards compatibility)
 - auto-http: Tries streamable-http, falls back to sse
@@ -304,7 +304,6 @@ Transport types:
 Examples:
 - invoke("context7", "resolve-library-id", {libraryName: "react"})
 - invoke("exa", "web_search_exa", {query: "Next.js 16"})
-- invoke("notion", "notion-search", {query: "project notes"})
 - invoke("playwright", "browser_navigate", {url: "https://example.com"})`,
     inputSchema: {
       server: z.enum(availableServers).describe("Target MCP server to invoke"),

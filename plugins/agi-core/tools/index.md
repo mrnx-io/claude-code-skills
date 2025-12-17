@@ -16,23 +16,6 @@ Quick reference for all available tools via `gateway.invoke(server, tool, args)`
 | `web_search_exa` | AI-powered web search |
 | `get_code_context_exa` | Code-focused context search |
 
-## notion (15+ tools)
-
-| Tool | Purpose |
-|------|---------|
-| `notion-search` | Search workspace |
-| `notion-fetch` | Get page/database content |
-| `notion-create-pages` | Create new pages |
-| `notion-update-page` | Update page content |
-| `notion-create-database` | Create new database |
-| `notion-update-database` | Modify database schema |
-| `notion-move-pages` | Move pages to new parent |
-| `notion-duplicate-page` | Duplicate a page |
-| `notion-create-comment` | Add comment to page |
-| `notion-get-comments` | Get page comments |
-| `notion-get-teams` | List teamspaces |
-| `notion-get-users` | List workspace users |
-
 ## playwright (10+ tools)
 
 | Tool | Purpose |
